@@ -401,7 +401,7 @@ def fmin(func, x0, args=(), xtol=1e-4, ftol=1e-4, maxiter=None, maxfun=None,
 
 
 def _minimize_neldermead(func, x0, args=(), callback=None,
-                         xtol=1e-4, ftol=1e-4, maxiter=None, maxfev=None,
+                         xtol=1e-4, ftol=1e-4, maxiter=np.inf, maxfev=np.inf,
                          disp=False, return_all=False, initial_simplex=None,
                          **unknown_options):
     """
@@ -465,9 +465,8 @@ def _minimize_neldermead(func, x0, args=(), callback=None,
     if retall:
         allvecs = [sim[0]]
 
-    if maxiter is None:
+    if maxiter == np.inf and maxfun == np.inf:
         maxiter = N * 200
-    if maxfun is None:
         maxfun = N * 200
 
     one2np1 = list(range(1, N + 1))
